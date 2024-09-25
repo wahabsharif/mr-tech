@@ -18,8 +18,8 @@ const NotFound: React.FC = () => {
 
         <div className="mt-[-30px] md:mt-[-50px] relative z-10">
           <h3 className="text-2xl md:text-4xl font-bold mt-4 text-black">
-            Look like <span className="text-thOrange">Mr. Tech</span> lost the
-            location.
+            Look like <span className="text-thOrange">Mr. Techies</span> lost
+            the location.
           </h3>
           <p className="mt-2 text-sm md:text-base text-black">
             The page you are looking for is not available!
