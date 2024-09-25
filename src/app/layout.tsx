@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
+import DockBar from "@/components/common/DockBar";
 import "@/styles/globals.css";
+import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
-import ThemeToggle from "@/components/common/ThemeToggle";
+import localFont from "next/font/local";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -32,7 +32,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class">
           <main className="bg-thLight dark:bg-thDark h-screen">
-            <ThemeToggle />
+            <DockBar />
             {children}
           </main>
         </ThemeProvider>
