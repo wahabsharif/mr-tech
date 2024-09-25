@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import React from "react";
+import Link from "next/link"; // Import Link from next/link
 import { FaFileInvoiceDollar } from "react-icons/fa6";
 import { GoHomeFill } from "react-icons/go";
 import { TiDocumentText } from "react-icons/ti";
@@ -9,9 +10,9 @@ import { TiDocumentText } from "react-icons/ti";
 import ThemeToggle from "./ThemeToggle";
 
 const dockItems = [
-  { icon: <GoHomeFill />, title: "Home" },
-  { icon: <TiDocumentText />, title: "Quotation" },
-  { icon: <FaFileInvoiceDollar />, title: "Invoice" },
+  { icon: <GoHomeFill />, title: "Home", href: "/" },
+  { icon: <TiDocumentText />, title: "Quotation", href: "/quotation" },
+  { icon: <FaFileInvoiceDollar />, title: "Invoice", href: "/invoice" },
   { icon: <ThemeToggle /> },
 ];
 
@@ -27,11 +28,17 @@ const DockBar: React.FC = () => {
           className="flex flex-col items-center cursor-pointer"
           whileHover={{ scale: 1.4 }}
         >
-          <div className="text-xl md:text-2xl lg:text-3xl">{item.icon}</div>
-          {item.title && (
-            <span className="text-xs md:text-sm lg:text-base capitalize">
-              {item.title}
-            </span>
+          {item.href ? ( // Check if href exists
+            <Link href={item.href} className="flex flex-col items-center">
+              <div className="text-xl md:text-2xl lg:text-3xl">{item.icon}</div>
+              <span className="text-xs md:text-sm lg:text-base capitalize">
+                {item.title}
+              </span>
+            </Link>
+          ) : (
+            <div className="flex flex-col items-center">
+              <div className="text-xl md:text-2xl lg:text-3xl">{item.icon}</div>
+            </div>
           )}
         </motion.div>
       ))}
