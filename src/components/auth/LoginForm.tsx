@@ -30,14 +30,17 @@ const LoginForm = () => {
       sessionStorage.setItem("userId", data.user._id);
       sessionStorage.setItem("fullName", data.user.fullName);
 
+      // Make sure to include the token in the login dispatch
       dispatch(
         login({
           fullName: data.user.fullName,
           username: data.user.username,
           active: data.user.active,
+          token: data.token, // Include the token in the payload
         })
       );
-      router.push("/");
+
+      router.push("/"); // Redirect after successful login
     } else {
       alert(data.error);
     }
