@@ -27,8 +27,8 @@ const LoginForm = () => {
 
     if (res.ok) {
       // Store user ID and full name in session storage
-      sessionStorage.setItem("userId", data.user._id);
-      sessionStorage.setItem("fullName", data.user.fullName);
+      // sessionStorage.setItem("userId", data.user._id);
+      // sessionStorage.setItem("fullName", data.user.fullName);
 
       // Make sure to include the token in the login dispatch
       dispatch(

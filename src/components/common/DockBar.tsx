@@ -6,14 +6,13 @@ import Link from "next/link"; // Import Link from next/link
 import { FaFileInvoiceDollar } from "react-icons/fa6";
 import { GoHomeFill } from "react-icons/go";
 import { TiDocumentText } from "react-icons/ti";
-
-import ThemeToggle from "./ThemeToggle";
+import MenuButton from "./MenuButton";
 
 const dockItems = [
   { icon: <GoHomeFill />, title: "Home", href: "/" },
   { icon: <TiDocumentText />, title: "Quotation", href: "/quotation" },
   { icon: <FaFileInvoiceDollar />, title: "Invoice", href: "/invoice" },
-  { icon: <ThemeToggle /> },
+  { icon: <MenuButton /> },
 ];
 
 const DockBar: React.FC = () => {
