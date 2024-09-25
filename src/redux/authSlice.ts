@@ -1,4 +1,3 @@
-// src/store/authSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface AuthState {
@@ -6,26 +5,35 @@ interface AuthState {
   isAuthenticated: boolean;
 }
 
-// Function to retrieve user from sessionStorage
+// Function to retrieve user from sessionStorage (only on the client side)
 const getUserFromsessionStorage = () => {
-  const user = sessionStorage.getItem("user");
-  return user ? JSON.parse(user) : null;
+  if (typeof window !== "undefined") {
+    // Make sure we're on the client side
+    const user = sessionStorage.getItem("user");
+    return user ? JSON.parse(user) : null;
+  }
+  return null; // Return null during SSR
 };
 
-// Function to check if authenticated from sessionStorage
+// Function to check if authenticated from sessionStorage (only on the client side)
 const isAuthenticatedFromsessionStorage = () => {
-  return !!sessionStorage.getItem("token"); // Assume token is stored on login
+  if (typeof window !== "undefined") {
+    // Make sure we're on the client side
+    return !!sessionStorage.getItem("token");
+  }
+  return false; // Return false during SSR
 };
 
 const initialState: AuthState = {
-  user: getUserFromsessionStorage(), // Set user from sessionStorage
-  isAuthenticated: isAuthenticatedFromsessionStorage(), // Set authentication status from sessionStorage
+  user: null, // Default to null, will populate on the client side
+  isAuthenticated: false, // Default to false, will populate on the client side
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    // Login reducer
     login(
       state,
       action: PayloadAction<{
@@ -37,18 +45,37 @@ const authSlice = createSlice({
     ) {
       state.user = action.payload;
       state.isAuthenticated = true;
-      sessionStorage.setItem("user", JSON.stringify(action.payload));
-      sessionStorage.setItem("token", action.payload.token);
+
+      if (typeof window !== "undefined") {
+        // Ensure we're on the client side
+        sessionStorage.setItem("user", JSON.stringify(action.payload));
+        sessionStorage.setItem("token", action.payload.token);
+      }
     },
+
+    // Logout reducer
     logout(state) {
       state.user = null;
       state.isAuthenticated = false;
-      sessionStorage.removeItem("user");
-      sessionStorage.removeItem("token");
+
+      if (typeof window !== "undefined") {
+        // Ensure we're on the client side
+        sessionStorage.removeItem("user");
+        sessionStorage.removeItem("token");
+      }
+    },
+
+    // Action to restore auth state from sessionStorage
+    restoreSession(state) {
+      const user = getUserFromsessionStorage();
+      const isAuthenticated = isAuthenticatedFromsessionStorage();
+
+      state.user = user;
+      state.isAuthenticated = isAuthenticated;
     },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, restoreSession } = authSlice.actions;
 
 export default authSlice.reducer;
