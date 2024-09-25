@@ -1,8 +1,8 @@
-import DockBar from "@/components/common/DockBar";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import localFont from "next/font/local";
+import ReduxProvider from "@/redux/ReduxProvider";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -30,12 +30,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider attribute="class">
-          <main className="bg-thLight dark:bg-thDark h-screen">
-            <DockBar />
-            {children}
-          </main>
-        </ThemeProvider>
+        <ReduxProvider>
+          <ThemeProvider attribute="class">
+            <main className="bg-thLight dark:bg-thDark min-h-screen">
+              {children}
+            </main>
+          </ThemeProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

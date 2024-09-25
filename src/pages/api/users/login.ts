@@ -38,6 +38,7 @@ export default async function handler(
       return res.status(200).json({
         message: "Login successful",
         user: {
+          _id: user._id, // Ensure you include this
           fullName: user.fullName,
           username: user.username,
           active: user.active,
