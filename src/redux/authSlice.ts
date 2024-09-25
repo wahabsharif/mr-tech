@@ -6,20 +6,20 @@ interface AuthState {
   isAuthenticated: boolean;
 }
 
-// Function to retrieve user from localStorage
-const getUserFromLocalStorage = () => {
-  const user = localStorage.getItem("user");
+// Function to retrieve user from sessionStorage
+const getUserFromsessionStorage = () => {
+  const user = sessionStorage.getItem("user");
   return user ? JSON.parse(user) : null;
 };
 
-// Function to check if authenticated from localStorage
-const isAuthenticatedFromLocalStorage = () => {
-  return !!localStorage.getItem("token"); // Assume token is stored on login
+// Function to check if authenticated from sessionStorage
+const isAuthenticatedFromsessionStorage = () => {
+  return !!sessionStorage.getItem("token"); // Assume token is stored on login
 };
 
 const initialState: AuthState = {
-  user: getUserFromLocalStorage(), // Set user from localStorage
-  isAuthenticated: isAuthenticatedFromLocalStorage(), // Set authentication status from localStorage
+  user: getUserFromsessionStorage(), // Set user from sessionStorage
+  isAuthenticated: isAuthenticatedFromsessionStorage(), // Set authentication status from sessionStorage
 };
 
 const authSlice = createSlice({
@@ -32,19 +32,19 @@ const authSlice = createSlice({
         fullName: string;
         username: string;
         active: boolean;
-        token: string; // Add token to the payload
+        token: string;
       }>
     ) {
       state.user = action.payload;
       state.isAuthenticated = true;
-      localStorage.setItem("user", JSON.stringify(action.payload)); // Save user to localStorage
-      localStorage.setItem("token", action.payload.token); // Save token to localStorage
+      sessionStorage.setItem("user", JSON.stringify(action.payload));
+      sessionStorage.setItem("token", action.payload.token);
     },
     logout(state) {
       state.user = null;
       state.isAuthenticated = false;
-      localStorage.removeItem("user"); // Remove user from localStorage
-      localStorage.removeItem("token"); // Remove token from localStorage
+      sessionStorage.removeItem("user");
+      sessionStorage.removeItem("token");
     },
   },
 });
