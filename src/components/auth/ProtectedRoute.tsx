@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { logout } from "@/redux/authSlice";
+import { logout, restoreSession } from "@/redux/authSlice";
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -16,6 +16,9 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    // Restore session on initial load
+    dispatch(restoreSession());
+
     const checkAuth = () => {
       const token = sessionStorage.getItem("token");
       const user = sessionStorage.getItem("user");

@@ -1,4 +1,3 @@
-// components/AdminLayout.tsx
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
