@@ -58,7 +58,7 @@ const LoginForm = () => {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="block w-full mb-2 p-2 border border-gray-300 rounded"
+          className="block w-full mb-2 p-2 border border-gray-300 rounded lowercase"
           required
         />
         <div className="relative mb-4">
