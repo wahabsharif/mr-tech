@@ -40,14 +40,14 @@ const LoginForm = () => {
         })
       );
 
-      router.push("/"); // Redirect after successful login
+      router.push("/admin"); // Redirect after successful login
     } else {
       alert(data.error);
     }
   };
 
   return (
-    <section className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-screen">
       <form
         onSubmit={handleLogin}
         className="max-w-sm w-full p-6 bg-teal-800 shadow-md rounded-md"
@@ -90,7 +90,7 @@ const LoginForm = () => {
           Login
         </button>
       </form>
-    </section>
+    </div>
   );
 };
 
