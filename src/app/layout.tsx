@@ -16,7 +16,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Mr Tech",
+  title: "Mr Techies",
   description: "At Your Door Step.",
 };
 
@@ -32,9 +32,7 @@ export default function RootLayout({
       >
         <ReduxProvider>
           <ThemeProvider attribute="class">
-            <main className="bg-thLight dark:bg-thDark min-h-screen">
-              {children}
-            </main>
+            <main className="min-h-screen p-10 text-center">{children}</main>
           </ThemeProvider>
         </ReduxProvider>
       </body>
